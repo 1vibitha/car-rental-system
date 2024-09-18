@@ -1,0 +1,293 @@
+{% extends "core/base.html" %}
+{% load static %}
+
+{% block login %}
+<a href="blog.html" class="nav-item nav-link">Booking</a>
+<a href="blog.html" class="nav-item nav-link">Edit</a>
+{% endblock login %}
+
+{% block signin %}
+
+<div>
+        <a href="{% url 'core:logout' %}" class="btn btn-primary rounded-pill py-2 px-4">logout</a>
+        </div>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <div>
+                <a href="{% url 'core:signup' %}" class="btn btn-primary rounded-pill py-2 px-4">Inbox</a>
+                        </div>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+                        <div>
+                        <a href="{% url 'core:login' %}" class="btn btn-primary rounded-pill py-2 px-4">Dashboard</a>
+                        </div>
+
+{% endblock signin %}
+{% block content %}
+<br><br>
+            <!-- Car  Start -->
+<div class="container-fluid categories pb-5">
+    <div class="container pb-5">
+        <div class="text-center mx-auto pb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 800px;">
+            <h1 class="display-5 text-capitalize mb-3">New<span class="text-primary">Cars</span></h1>                   
+            <p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ut amet nemo expedita asperiores commodi accusantium at cum harum, excepturi, quia tempora cupiditate! Adipisci facilis modi quisquam quia distinctio.</p>
+        </div>
+        <div class="categories-carousel owl-carousel wow fadeInUp" data-wow-delay="0.1s">
+            {% for item in items %}
+            <div class="categories-item p-4">
+                <div class="categories-item-inner">
+                    <div class="categories-img rounded-top">
+                        <img src="{{ item.image.url }}" class="img-fluid w-100 rounded-top" alt="">
+                    </div>
+                    <div class="categories-content rounded-bottom p-4">
+                        <h4>{{ item.name }}</h4>
+                        <div class="categories-review mb-4">
+                            <div class="me-3">4.5 Review</div>
+                            <div class="d-flex justify-content-center text-secondary">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star text-body"></i>
+                            </div>
+                        </div>
+                        <div class="mb-4">
+                            <h4 class="bg-white text-primary rounded-pill py-2 px-4 mb-0">Price: {{ item.price }} / Day</h4>
+                        </div>
+                        
+                        <a href="#" class="btn btn-primary " target="_blank">Show Details</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+<!-- Car  End -->
+
+
+        <!-- Car Steps Start -->
+        <div class="container-fluid steps py-5">
+            <div class="container py-5">
+                <div class="text-center mx-auto pb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 800px;">
+                    <h1 class="display-5 text-capitalize text-white mb-3">Cental<span class="text-primary"> Process</span></h1>
+                    <p class="mb-0 text-white">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ut amet nemo expedita asperiores commodi accusantium at cum harum, excepturi, quia tempora cupiditate! Adipisci facilis modi quisquam quia distinctio,
+                    </p>
+                </div>
+                <div class="row g-4">
+                    <div class="col-lg-4 wow fadeInUp" data-wow-delay="0.1s">
+                        <div class="steps-item p-4 mb-4">
+                            <h4>Come In Contact</h4>
+                            <p class="mb-0">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ad, dolorem!</p>
+                            <div class="setps-number">01.</div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 wow fadeInUp" data-wow-delay="0.3s">
+                        <div class="steps-item p-4 mb-4">
+                            <h4>Choose A Car</h4>
+                            <p class="mb-0">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ad, dolorem!</p>
+                            <div class="setps-number">02.</div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 wow fadeInUp" data-wow-delay="0.5s">
+                        <div class="steps-item p-4 mb-4">
+                            <h4>Enjoy Driving</h4>
+                            <p class="mb-0">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ad, dolorem!</p>
+                            <div class="setps-number">03.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Car Steps End -->
+
+                      <!-- Car categories Start -->
+<div class="container-fluid team pb-5">
+    <div class="container pb-5">
+        <div class="text-center mx-auto pb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 800px;">
+            <h1 class="display-5 text-capitalize mb-3">Categories<span class="text-primary"> of</span> Car</h1>
+            <p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ut amet nemo expedita asperiores commodi accusantium at cum harum, excepturi, quia tempora cupiditate! Adipisci facilis modi quisquam quia distinctio.</p>
+        </div>
+
+        <div class="row g-4">
+            {% for category in categories %}
+            <div class="col-md-6 col-lg-6 col-xl-3 wow fadeInUp" data-wow-delay="0.1s">
+                <div class="team-item p-4 pt-0">
+                    <div class="team-img">
+                        
+                        <img src="{{ category.image.url }}" class="img-fluid rounded w-100" alt="{{ category.name }}">
+                    </div>
+                    <div class="team-content pt-4">
+                        <h4>{{ category.name }}</h4>
+                        <p>{{ category.items.count }} Items</p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+<!-- Car categories End -->
+
+        <!-- Blog Start -->
+        <div class="container-fluid blog py-5">
+            <div class="container py-5">
+                <div class="text-center mx-auto pb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 800px;">
+                    <h1 class="display-5 text-capitalize mb-3">Cental<span class="text-primary"> Blog & News</span></h1>
+                    <p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ut amet nemo expedita asperiores commodi accusantium at cum harum, excepturi, quia tempora cupiditate! Adipisci facilis modi quisquam quia distinctio,
+                    </p>
+                </div>
+                <div class="row g-4">
+                    <div class="col-lg-4 wow fadeInUp" data-wow-delay="0.1s">
+                        <div class="blog-item">
+                            <div class="blog-img">
+                                <img src="{% static 'img/blog-1.jpg' %}" class="img-fluid rounded-top w-100" alt="Image">
+                            </div>
+                            <div class="blog-content rounded-bottom p-4">
+                                <div class="blog-date">30 Dec 2025</div>
+                                <div class="blog-comment my-3">
+                                    <div class="small"><span class="fa fa-user text-primary"></span><span class="ms-2">Martin.C</span></div>
+                                    <div class="small"><span class="fa fa-comment-alt text-primary"></span><span class="ms-2">6 Comments</span></div>
+                                </div>
+                                <a href="#" class="h4 d-block mb-3">Rental Cars how to check driving fines?</a>
+                                <p class="mb-3">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eius libero soluta impedit eligendi? Quibusdam, laudantium.</p>
+                                <a href="#" class="">Read More  <i class="fa fa-arrow-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 wow fadeInUp" data-wow-delay="0.3s">
+                        <div class="blog-item">
+                            <div class="blog-img">
+                                <img src="{% static 'img/blog-2.jpg' %}" class="img-fluid rounded-top w-100" alt="Image">
+                            </div>
+                            <div class="blog-content rounded-bottom p-4">
+                                <div class="blog-date">25 Dec 2025</div>
+                                <div class="blog-comment my-3">
+                                    <div class="small"><span class="fa fa-user text-primary"></span><span class="ms-2">Martin.C</span></div>
+                                    <div class="small"><span class="fa fa-comment-alt text-primary"></span><span class="ms-2">6 Comments</span></div>
+                                </div>
+                                <a href="#" class="h4 d-block mb-3">Rental cost of sport and other cars</a>
+                                <p class="mb-3">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eius libero soluta impedit eligendi? Quibusdam, laudantium.</p>
+                                <a href="#" class="">Read More  <i class="fa fa-arrow-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 wow fadeInUp" data-wow-delay="0.5s">
+                        <div class="blog-item">
+                            <div class="blog-img">
+                                <img src="{% static 'img/blog-3.jpg' %}" class="img-fluid rounded-top w-100" alt="Image">
+                            </div>
+                            <div class="blog-content rounded-bottom p-4">
+                                <div class="blog-date">27 Dec 2025</div>
+                                <div class="blog-comment my-3">
+                                    <div class="small"><span class="fa fa-user text-primary"></span><span class="ms-2">Martin.C</span></div>
+                                    <div class="small"><span class="fa fa-comment-alt text-primary"></span><span class="ms-2">6 Comments</span></div>
+                                </div>
+                                <a href="#" class="h4 d-block mb-3">Document required for car rental</a>
+                                <p class="mb-3">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eius libero soluta impedit eligendi? Quibusdam, laudantium.</p>
+                                <a href="#" class="">Read More  <i class="fa fa-arrow-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Blog End -->
+
+        <!-- Banner Start -->
+        <div class="container-fluid banner pb-5 wow zoomInDown" data-wow-delay="0.1s">
+            <div class="container pb-5">
+                <div class="banner-item rounded">
+                    <img src="{% static 'img/banner-1.jpg' %}" class="img-fluid rounded w-100" alt="">
+                    <div class="banner-content">
+                        <h2 class="text-primary">Rent Your Car</h2>
+                        <h1 class="text-white">Interested in Renting?</h1>
+                        <p class="text-white">Don't hesitate and send us a message.</p>
+                        <div class="banner-btn">
+                            <a href="#" class="btn btn-secondary rounded-pill py-3 px-4 px-md-5 me-2">WhatchApp</a>
+                            <a href="#" class="btn btn-primary rounded-pill py-3 px-4 px-md-5 ms-2">Contact Us</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Banner End -->
+
+       
+        <!-- Testimonial Start -->
+        <div class="container-fluid testimonial pb-5">
+            <div class="container pb-5">
+                <div class="text-center mx-auto pb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 800px;">
+                    <h1 class="display-5 text-capitalize mb-3">Our Clients<span class="text-primary"> Riviews</span></h1>
+                    <p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ut amet nemo expedita asperiores commodi accusantium at cum harum, excepturi, quia tempora cupiditate! Adipisci facilis modi quisquam quia distinctio,
+                    </p>
+                </div>
+                <div class="owl-carousel testimonial-carousel wow fadeInUp" data-wow-delay="0.1s">
+                    <div class="testimonial-item">
+                        <div class="testimonial-quote"><i class="fa fa-quote-right fa-2x"></i>
+                        </div>
+                        <div class="testimonial-inner p-4">
+                            <img src="{% static 'img/testimonial-1.jpg' %}" class="img-fluid" alt="">
+                            <div class="ms-4">
+                                <h4>Person Name</h4>
+                                <p>Profession</p>
+                                <div class="d-flex text-primary">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star text-body"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="border-top rounded-bottom p-4">
+                            <p class="mb-0">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam soluta neque ab repudiandae reprehenderit ipsum eos cumque esse repellendus impedit.</p>
+                        </div>
+                    </div>
+                    <div class="testimonial-item">
+                        <div class="testimonial-quote"><i class="fa fa-quote-right fa-2x"></i>
+                        </div>
+                        <div class="testimonial-inner p-4">
+                            <img src="{% static 'img/testimonial-2.jpg' %}" class="img-fluid" alt="">
+                            <div class="ms-4">
+                                <h4>Person Name</h4>
+                                <p>Profession</p>
+                                <div class="d-flex text-primary">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star text-body"></i>
+                                    <i class="fas fa-star text-body"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="border-top rounded-bottom p-4">
+                            <p class="mb-0">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam soluta neque ab repudiandae reprehenderit ipsum eos cumque esse repellendus impedit.</p>
+                        </div>
+                    </div>
+                    <div class="testimonial-item">
+                        <div class="testimonial-quote"><i class="fa fa-quote-right fa-2x"></i>
+                        </div>
+                        <div class="testimonial-inner p-4">
+                            <img src="{% static 'img/testimonial-3.jpg' %}" class="img-fluid" alt="">
+                            <div class="ms-4">
+                                <h4>Person Name</h4>
+                                <p>Profession</p>
+                                <div class="d-flex text-primary">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star text-body"></i>
+                                    <i class="fas fa-star text-body"></i>
+                                    <i class="fas fa-star text-body"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="border-top rounded-bottom p-4">
+                            <p class="mb-0">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam soluta neque ab repudiandae reprehenderit ipsum eos cumque esse repellendus impedit.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Testimonial End -->
+        {% endblock content %}
+  
