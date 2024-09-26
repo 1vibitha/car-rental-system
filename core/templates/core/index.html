@@ -350,12 +350,12 @@
             </div>
         </div>
         <!-- Services End -->
-
-       <!-- Car  Start -->
+        
+<!-- Car Start -->
 <div class="container-fluid categories pb-5">
     <div class="container pb-5">
         <div class="text-center mx-auto pb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 800px;">
-            <h1 class="display-5 text-capitalize mb-3">New<span class="text-primary">Cars</span></h1>                   
+            <h1 class="display-5 text-capitalize mb-3">New<span class="text-primary">Cars</span></h1>
             <p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ut amet nemo expedita asperiores commodi accusantium at cum harum, excepturi, quia tempora cupiditate! Adipisci facilis modi quisquam quia distinctio.</p>
         </div>
         <div class="categories-carousel owl-carousel wow fadeInUp" data-wow-delay="0.1s">
@@ -363,8 +363,8 @@
             <div class="categories-item p-4">
                 <div class="categories-item-inner">
                     <a href="{% url 'item:detail' item.id %}">
-                    <div class="categories-img rounded-top">
-                        <img src="{{ item.image.url }}" class="img-fluid w-100 rounded-top" alt="">
+                    <div class="categories-img rounded-top" style="height: 200px; overflow: hidden;"> <!-- Set fixed height for the image container -->
+                        <img src="{{ item.image.url }}" class="img-fluid w-100" style="height: 100%; object-fit: cover;" alt=""> <!-- Ensure the image fits the container -->
                     </div>
                     <div class="categories-content rounded-bottom p-4">
                         <h4>{{ item.name }}</h4>
@@ -381,8 +381,8 @@
                         <div class="mb-4">
                             <h4 class="bg-white text-primary rounded-pill py-2 px-4 mb-0">Price: {{ item.price }} / Day</h4>
                         </div>
-                        
-                        <a href="{% url 'item:detail' item.id %}" class="btn btn-primary " target="_blank">Show Details</a>
+                        <!-- Show Details button remains unchanged -->
+                        <a href="{% url 'item:detail' item.id %}" class="btn btn-primary" target="_blank">Show Details</a>
                     </div>
                 </div>
             </div>
@@ -390,7 +390,7 @@
         </div>
     </div>
 </div>
-<!-- Car  End -->
+<!-- Car End -->
 
 
         <!-- Car Steps Start -->
@@ -430,7 +430,7 @@
 
         <br>
         <br>
-              <!-- Car categories Start -->
+           <!-- Car categories Start -->
 <div class="container-fluid team pb-5">
     <div class="container pb-5">
         <div class="text-center mx-auto pb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 800px;">
@@ -442,9 +442,8 @@
             {% for category in categories %}
             <div class="col-md-6 col-lg-6 col-xl-3 wow fadeInUp" data-wow-delay="0.1s">
                 <div class="team-item p-4 pt-0">
-                    <div class="team-img">
-                        
-                        <img src="{{ category.image.url }}" class="img-fluid rounded w-100" alt="{{ category.name }}">
+                    <div class="team-img" style="height: 250px; overflow: hidden;"> <!-- Set a fixed height for uniformity -->
+                        <img src="{{ category.image.url }}" class="img-fluid rounded w-100" style="height: 100%; object-fit: cover;" alt="{{ category.name }}"> <!-- Ensure image covers the container -->
                     </div>
                     <div class="team-content pt-4">
                         <h4>{{ category.name }}</h4>

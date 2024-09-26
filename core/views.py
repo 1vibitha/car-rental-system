@@ -35,7 +35,13 @@ def log(request):
         'items' : items
     })
 def logout(request):
-    return render(request, 'core/index.html')
+    items = Item.objects.filter(is_sold=False)[0:6]
+    categories = Category.objects.all()
+
+    return render(request, 'core/index.html', {
+        'categories' : categories,
+        'items' : items
+    })
 def login(request):
     if request.method == 'POST':
         username = request.POST['username']
