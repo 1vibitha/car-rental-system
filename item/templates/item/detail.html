@@ -123,8 +123,13 @@
     <br>
 
     <div class="d-flex justify-content-center mt-4">
-        <a href="#" class="btn btn-primary me-4">Contact Seller</a>
-        <a href="#" class="btn btn-success">Book</a>
+        {% if user.is_authenticated %}
+            <a href="" class="btn btn-primary me-4">Contact Seller</a>
+            <a href="" class="btn btn-success">Book</a>
+        {% else %}
+            <a href="{% url 'core:login' %}" class="btn btn-primary me-4">Contact Seller</a>
+            <a href="{% url 'core:login' %}" class="btn btn-success">Book</a>
+        {% endif %}
     </div>
 </center>
                 </div>
@@ -163,7 +168,7 @@
                                     <div class="mb-4">
                                         <h4 class="bg-white text-primary rounded-pill py-2 px-4 mb-0">Price: {{ item.price }} / Day</h4>
                                     </div>
-                                    <a href="#" class="btn btn-primary" target="_blank">Show Details</a>
+                                    <a href="{% url 'item:detail' item.id %}" class="btn btn-primary" target="_blank">Show Details</a>
                                 </div>
                             </a>
                         </div>

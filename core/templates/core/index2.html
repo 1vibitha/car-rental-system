@@ -24,7 +24,8 @@
 {% endblock signin %}
 {% block content %}
 <br><br>
-            <!-- Car  Start -->
+  
+       <!-- Car  Start -->
 <div class="container-fluid categories pb-5">
     <div class="container pb-5">
         <div class="text-center mx-auto pb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 800px;">
@@ -35,6 +36,7 @@
             {% for item in items %}
             <div class="categories-item p-4">
                 <div class="categories-item-inner">
+                    <a href="{% url 'item:detail' item.id %}">
                     <div class="categories-img rounded-top">
                         <img src="{{ item.image.url }}" class="img-fluid w-100 rounded-top" alt="">
                     </div>
@@ -54,7 +56,7 @@
                             <h4 class="bg-white text-primary rounded-pill py-2 px-4 mb-0">Price: {{ item.price }} / Day</h4>
                         </div>
                         
-                        <a href="#" class="btn btn-primary " target="_blank">Show Details</a>
+                        <a href="{% url 'item:detail' item.id %}" class="btn btn-primary " target="_blank">Show Details</a>
                     </div>
                 </div>
             </div>

@@ -27,7 +27,13 @@ def signup(request):
         'form' : form
     })
 def log(request):
-    return render(request, 'core/index2.html')
+    items = Item.objects.filter(is_sold=False)[0:6]
+    categories = Category.objects.all()
+
+    return render(request, 'core/index2.html', {
+        'categories' : categories,
+        'items' : items
+    })
 def logout(request):
     return render(request, 'core/index.html')
 def login(request):
