@@ -2,6 +2,7 @@ import re
 from django import forms
 from django.contrib.auth.forms import UserCreationForm,AuthenticationForm
 from django.contrib.auth.models import User
+from django.contrib.auth.forms import PasswordChangeForm
 class LoginForm(AuthenticationForm):
     
     username = forms.CharField(widget=forms.TextInput(attrs={
@@ -65,3 +66,35 @@ class SignupForm(UserCreationForm):
             raise forms.ValidationError("Passwords do not match.")
 
         return password2
+
+#To edit the profile
+class EditProfileForm(forms.ModelForm):
+    email = forms.EmailField(
+        required=True,
+        widget=forms.EmailInput(attrs={'placeholder': 'Email'}),
+        label="Email"
+    )
+    username = forms.CharField(
+        required=True,
+        widget=forms.TextInput(attrs={'placeholder': 'Username'}),
+        label="Username"
+    )
+
+    class Meta:
+        model = User
+        fields = ['email', 'username']
+
+#To edit the password
+class CustomPasswordChangeForm(PasswordChangeForm):
+    old_password = forms.CharField(
+        label="Old Password",
+        widget=forms.PasswordInput(attrs={'placeholder': 'Old Password'})
+    )
+    new_password1 = forms.CharField(
+        label="New Password",
+        widget=forms.PasswordInput(attrs={'placeholder': 'New Password'})
+    )
+    new_password2 = forms.CharField(
+        label="Confirm New Password",
+        widget=forms.PasswordInput(attrs={'placeholder': 'Confirm New Password'})
+    )

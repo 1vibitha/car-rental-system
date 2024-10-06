@@ -1,0 +1,127 @@
+{% extends "core/base.html" %}
+{% load static %}
+{% block page %}active{% endblock page %}
+{% block car %}active{% endblock car %}
+
+{% block content %}
+    <!-- Header Start -->
+    <div class="container-fluid bg-breadcrumb">
+        <div class="container text-center py-5" style="max-width: 900px;">
+            <h4 class="text-white display-4 mb-4 wow fadeInDown" data-wow-delay="0.1s">Our Cars</h4>
+            <ol class="breadcrumb d-flex justify-content-center mb-0 wow fadeInDown" data-wow-delay="0.3s">
+                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                <li class="breadcrumb-item"><a href="#">Pages</a></li>
+                <li class="breadcrumb-item active text-primary">Categories</li>
+            </ol>    
+        </div>
+    </div>
+    <!-- Header End -->
+       <br>
+       <br>
+<!-- Car Start -->
+<div class="container-fluid categories pb-5">
+    <div class="container pb-5">
+        <div class="text-center mx-auto pb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 800px;">
+            <h1 class="display-5 text-capitalize mb-3">New<span class="text-primary">Cars</span></h1>
+            <p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ut amet nemo expedita asperiores commodi accusantium at cum harum, excepturi, quia tempora cupiditate! Adipisci facilis modi quisquam quia distinctio.</p>
+        </div>
+        <div class="categories-carousel owl-carousel wow fadeInUp" data-wow-delay="0.1s">
+            {% for item in items %}
+            <div class="categories-item p-4">
+                <div class="categories-item-inner">
+                    <a href="{% url 'item:detail' item.id %}">
+                    <div class="categories-img rounded-top" style="height: 200px; overflow: hidden;"> <!-- Set fixed height for the image container -->
+                        <img src="{{ item.image.url }}" class="img-fluid w-100" style="height: 100%; object-fit: cover;" alt=""> <!-- Ensure the image fits the container -->
+                    </div>
+                    <div class="categories-content rounded-bottom p-4">
+                        <h4>{{ item.name }}</h4>
+                        <div class="categories-review mb-4">
+                            <div class="me-3">4.5 Review</div>
+                            <div class="d-flex justify-content-center text-secondary">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star text-body"></i>
+                            </div>
+                        </div>
+                        <div class="mb-4">
+                            <h4 class="bg-white text-primary rounded-pill py-2 px-4 mb-0">Price: {{ item.price }} / Day</h4>
+                        </div>
+                        <!-- Show Details button remains unchanged -->
+                        <a href="{% url 'item:detail' item.id %}" class="btn btn-primary" target="_blank">Show Details</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+<!-- Car End -->
+
+
+        <!-- Car Steps Start -->
+        <div class="container-fluid steps py-5">
+            <div class="container py-5">
+                <div class="text-center mx-auto pb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 800px;">
+                    <h1 class="display-5 text-capitalize text-white mb-3">Cental<span class="text-primary"> Process</span></h1>
+                    <p class="mb-0 text-white">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ut amet nemo expedita asperiores commodi accusantium at cum harum, excepturi, quia tempora cupiditate! Adipisci facilis modi quisquam quia distinctio,
+                    </p>
+                </div>
+                <div class="row g-4">
+                    <div class="col-lg-4 wow fadeInUp" data-wow-delay="0.1s">
+                        <div class="steps-item p-4 mb-4">
+                            <h4>Come In Contact</h4>
+                            <p class="mb-0">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ad, dolorem!</p>
+                            <div class="setps-number">01.</div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 wow fadeInUp" data-wow-delay="0.3s">
+                        <div class="steps-item p-4 mb-4">
+                            <h4>Choose A Car</h4>
+                            <p class="mb-0">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ad, dolorem!</p>
+                            <div class="setps-number">02.</div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 wow fadeInUp" data-wow-delay="0.5s">
+                        <div class="steps-item p-4 mb-4">
+                            <h4>Enjoy Driving</h4>
+                            <p class="mb-0">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ad, dolorem!</p>
+                            <div class="setps-number">03.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Car Steps End -->
+
+        <br>
+        <br>
+           <!-- Car categories Start -->
+<div class="container-fluid team pb-5">
+    <div class="container pb-5">
+        <div class="text-center mx-auto pb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 800px;">
+            <h1 class="display-5 text-capitalize mb-3">Categories<span class="text-primary"> of</span> Car</h1>
+            <p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ut amet nemo expedita asperiores commodi accusantium at cum harum, excepturi, quia tempora cupiditate! Adipisci facilis modi quisquam quia distinctio.</p>
+        </div>
+
+        <div class="row g-4">
+            {% for category in categories %}
+            <div class="col-md-6 col-lg-6 col-xl-3 wow fadeInUp" data-wow-delay="0.1s">
+                <div class="team-item p-4 pt-0">
+                    <div class="team-img" style="height: 250px; overflow: hidden;"> <!-- Set a fixed height for uniformity -->
+                        <img src="{{ category.image.url }}" class="img-fluid rounded w-100" style="height: 100%; object-fit: cover;" alt="{{ category.name }}"> <!-- Ensure image covers the container -->
+                    </div>
+                    <div class="team-content pt-4">
+                        <h4>{{ category.name }}</h4>
+                        <p>{{ category.items.count }} Items</p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+<!-- Car categories End -->
+   
+        {% endblock content %}

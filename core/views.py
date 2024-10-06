@@ -1,8 +1,12 @@
 from django.shortcuts import render,redirect
 from .forms import SignupForm
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login as auth_login
 from django.contrib import messages
 from item.models import Category, Item
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth import update_session_auth_hash
+from .forms import EditProfileForm, CustomPasswordChangeForm
+from django.contrib.auth import logout as auth_logout
 # Create your views here.
 def index(request):
     items = Item.objects.filter(is_sold=False)[0:6]
@@ -34,14 +38,11 @@ def log(request):
         'categories' : categories,
         'items' : items
     })
-def logout(request):
-    items = Item.objects.filter(is_sold=False)[0:6]
-    categories = Category.objects.all()
 
-    return render(request, 'core/index.html', {
-        'categories' : categories,
-        'items' : items
-    })
+def logout(request):
+    auth_logout(request)
+    return redirect('core:index') 
+
 def login(request):
     if request.method == 'POST':
         username = request.POST['username']
@@ -49,10 +50,71 @@ def login(request):
         user = authenticate(request, username=username, password=password)
 
         if user is not None:
-            login(request, user)
-            return redirect('home')  # Redirect to a home page or dashboard
+            auth_login(request, user)
+            return redirect('log')  # Redirect to index2.html or your logged-in page
         else:
-            # Add error message for invalid login
             messages.error(request, 'Invalid username or password.')
     
-    return render(request, 'login.html')
+    return render(request, 'core/login.html')  # Show the login form if not POST
+def about(request):
+    return render(request, 'core/about.html')
+
+def car(request):
+    items = Item.objects.filter(is_sold=False)[0:6]
+    categories = Category.objects.all()
+
+    return render(request, 'core/cars.html', {
+        'categories' : categories,
+        'items' : items
+    })
+
+
+def feature(request):
+    return render(request, 'core/feature.html')
+
+def service(request):
+    return render(request, 'core/service.html')
+
+def test(request):
+    return render(request, 'core/testimonial.html')
+
+#To edit profile
+
+@login_required
+def edit_profile(request):
+    profile_form = None
+    if request.method == 'POST':
+        # Handle profile update
+        profile_form = EditProfileForm(request.POST, instance=request.user)
+        if profile_form.is_valid():
+            profile_form.save()
+            messages.success(request, 'Your profile has been updated successfully!')
+            return redirect('core:log')  # Redirect to the appropriate page after successful update
+
+    else:
+        profile_form = EditProfileForm(instance=request.user)
+
+    return render(request, 'core/profile.html', {
+        'profile_form': profile_form
+    })
+
+
+@login_required
+def change_password(request):
+    password_form = None
+    if request.method == 'POST':
+        # Handle password change
+        password_form = CustomPasswordChangeForm(user=request.user, data=request.POST)
+        if password_form.is_valid():
+            user = password_form.save()
+            update_session_auth_hash(request, user)  # Prevent logout after password change
+            messages.success(request, 'Your password was successfully updated!')
+            return redirect('core:log')  # Redirect to the appropriate page after successful password change
+
+    else:
+        password_form = CustomPasswordChangeForm(user=request.user)
+
+    return render(request, 'core/password.html', {
+        'password_form': password_form
+    })
+

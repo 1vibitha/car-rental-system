@@ -3,16 +3,17 @@
 
 {% block signin %}
 <div>
-                <a href="{% url 'core:signup' %}" class="btn btn-primary rounded-pill py-3 px-4">Sign In</a>
-                        </div>
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <a href="{% url 'core:signup' %}" class="btn btn-primary rounded-pill py-3 px-4">Sign In</a>
+            </div>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
-                        <div>
-                        <a href="{% url 'core:login' %}" class="btn btn-primary rounded-pill py-3 px-4">log In</a>
-                        </div>
+            <div>
+            <a href="{% url 'core:login' %}" class="btn btn-primary rounded-pill py-3 px-4">log In</a>
+</div>
+
 {% endblock signin %}
-
 {% block content %}
+<br><br>
 
 
 
@@ -123,13 +124,13 @@
     <br>
 
     <div class="d-flex justify-content-center mt-4">
-        {% if user.is_authenticated %}
+        {% comment %} {% if user.is_authenticated %}
             <a href="" class="btn btn-primary me-4">Contact Seller</a>
             <a href="" class="btn btn-success">Book</a>
-        {% else %}
+        {% else %} {% endcomment %}
             <a href="{% url 'core:login' %}" class="btn btn-primary me-4">Contact Seller</a>
             <a href="{% url 'core:login' %}" class="btn btn-success">Book</a>
-        {% endif %}
+        {% comment %} {% endif %} {% endcomment %}
     </div>
 </center>
                 </div>

@@ -540,7 +540,7 @@
 .categories-carousel .owl-nav .owl-prev:hover,
 .categories-carousel .owl-nav .owl-next:hover {
     background: var(--bs-secondary);
-    color: var(--bs-white);
+    color: var(--bs-white); 
 }
 
 

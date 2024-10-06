@@ -1,27 +1,6 @@
 {% extends "core/base.html" %}
 {% load static %}
 
-{% block login %}
-<a href="blog.html" class="nav-item nav-link">Booking</a>
-<a href="blog.html" class="nav-item nav-link">Edit</a>
-{% endblock login %}
-
-{% block signin %}
-
-<div>
-        <a href="{% url 'core:logout' %}" class="btn btn-primary rounded-pill py-2 px-4">logout</a>
-        </div>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <div>
-                <a href="{% url 'core:signup' %}" class="btn btn-primary rounded-pill py-2 px-4">Inbox</a>
-                        </div>
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-
-                        <div>
-                        <a href="{% url 'core:login' %}" class="btn btn-primary rounded-pill py-2 px-4">Dashboard</a>
-                        </div>
-
-{% endblock signin %}
 {% block content %}
 <br><br>
   
