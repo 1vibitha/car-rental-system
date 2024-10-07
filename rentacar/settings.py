@@ -37,6 +37,7 @@ LOGOUT_REDIRECT_URL = '/'
 INSTALLED_APPS = [
     'item',
     'core',
+    'dashboard',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

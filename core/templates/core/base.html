@@ -77,88 +77,40 @@
                 <div class="collapse navbar-collapse" id="navbarCollapse">
                     <div class="navbar-nav mx-auto py-0">
                         {% if request.user.is_authenticated %}
-    <!-- Show authenticated user links -->
-    <a href="blog.html" class="nav-item nav-link">Booking</a>
-    <a href="blog.html" class="nav-item nav-link">Edit</a>
-    <a href="{% url 'core:login' %}" class="nav-item nav-link">Dashboard</a>
-    <a href="{% url 'core:login' %}" class="nav-item nav-link">Inbox</a>
-    <a href="{% url 'item:new' %}" class="nav-item nav-link">Add Item</a>
-    <a href="{% url 'core:logout' %}" class="btn btn-primary rounded-pill py-3 px-4">Logout</a>
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    <a href="{% url 'core:profile' %}" class="btn btn-primary rounded-pill py-3 px-4">Edit Profile</a>
-{% else %}
-    <!-- Show logged-out user links -->
-    <a href="{% url 'core:index' %}" class="nav-item nav-link">Home</a>
-    <a href="{% url 'core:about' %}" class="nav-item nav-link">About</a>
-    <a href="{% url 'core:service' %}" class="nav-item nav-link">Service</a>
-    <div class="nav-item dropdown ">
-        <a href="#" class="nav-link dropdown-toggle {% block page %}{% endblock page %}" data-bs-toggle="dropdown">Pages</a>
-        <div class="dropdown-menu m-0">
-            <a href="{% url 'core:feature' %}" class="dropdown-item {% block feature %}{% endblock feature %}">Our Feature</a>
-            <a href="{% url 'core:car' %}" class="dropdown-item {% block car %}{% endblock car %}">Our Cars</a>
-           
-            <a href="{% url 'core:test' %}" class="dropdown-item {% block test %}{% endblock test %}">Testimonial</a>
-            
-        </div>
-    </div>
-   
-    <a href="{% url 'core:signup' %}" class="btn btn-primary rounded-pill py-3 px-4">Sign Up</a>
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-
-    <a href="{% url 'core:login' %}" class="btn btn-primary rounded-pill py-3 px-4">Log In</a>
-
-{% endif %}
-
+                            <a href="blog.html" class="nav-item nav-link">Booking</a>
+                            <a href="blog.html" class="nav-item nav-link">Edit</a>
+                            <a href="{% url 'core:login' %}" class="nav-item nav-link">Dashboard</a>
+                            <a href="{% url 'core:login' %}" class="nav-item nav-link">Inbox</a>
+                            <a href="{% url 'item:new' %}" class="nav-item nav-link">Add Item</a>
+                        </div>
+                        <a href="{% url 'core:logout' %}" class="btn btn-primary rounded-pill py-2 px-4">Logout</a>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <a href="{% url 'core:profile' %}" class="btn btn-primary rounded-pill py-2 px-4">Edit profile</a>
                     </div>
-                </div>
+                        {% else %}
+                            <a href="{% url 'core:index' %}" class="nav-item nav-link">Home</a>
+                            <a href="{% url 'core:about' %}" class="nav-item nav-link">About</a>
+                            <a href="{% url 'core:service' %}" class="nav-item nav-link">Service</a>
+                            <div class="nav-item dropdown ">
+                                <a href="#" class="nav-link dropdown-toggle {% block page %}{% endblock page %}" data-bs-toggle="dropdown">Pages</a>
+                                <div class="dropdown-menu m-0">
+                                    <a href="{% url 'core:feature' %}" class="dropdown-item {% block feature %}{% endblock feature %}">Our Feature</a>
+                                    <a href="{% url 'core:car' %}" class="dropdown-item {% block car %}{% endblock car %}">Our Cars</a>
+                                    <a href="{% url 'core:test' %}" class="dropdown-item {% block test %}{% endblock test %}">Testimonial</a>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="{% url 'core:signup' %}" class="btn btn-primary rounded-pill py-2 px-4">Sign Up</a>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <a href="{% url 'core:login' %}" class="btn btn-primary rounded-pill py-2 px-4">Log In</a>
+                    </div>
+                        {% endif %}
+                    
             </nav>
         </div>
     </div>
-    
-    <!-- Navbar & Hero End -->
 
-        {% comment %} <!-- Navbar & Hero Start -->
-        <div class="container-fluid nav-bar sticky-top px-0 px-lg-4 py-1 py-lg-0">
-           
-             
-            <div class="container">
-                <nav class="navbar navbar-expand-lg navbar-light">
-                    <a href="{% url 'core:index' %}" class="navbar-brand p-0">
-                       
-                        <h1 class="display-6 text-primary">
-                            <img src="{% static 'img/transport.png' %}" alt="Car Icon" style="width: 40px; height: auto; margin-right: 10px;">
-                            Cental
-                        </h1>
-                        <!-- <img src="img/logo.png" alt="Logo"> -->
-                    </a>
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
-                        <span class="fa fa-bars"></span>
-                    </button>
-                    <div class="collapse navbar-collapse" id="navbarCollapse">
-                        <div class="navbar-nav mx-auto py-0">
-                            <b>
 
-                                <a href="{% url 'core:index' %}" class="nav-item nav-link" style="color: red ; font-family: 'Garamond', sans-serif; font-size: 25px;">Home</a>
-                            </b>
-                           <b>
-
-                               <a href="about.html" class="nav-item nav-link" style="color: red; font-family: 'Garamond', sans-serif;  font-size: 25px;">NewItem</a>
-                            </b> 
-                            <b>
-
-                                <a href="service.html" class="nav-item nav-link" style="color: red ; font-family: 'Garamond', sans-serif; font-size: 25px;">Browse</a>
-                            </b>
-                        
-                            {% block login %}{% endblock login %}
-                                                       
-                        </div>
-                        </div>
-{% block signin %}{% endblock signin %}
-                                         
-                </nav>
-            </div>
-        </div>
-        <!-- Navbar & Hero End --> {% endcomment %}
         <body style="background-color:powderblue;">
             
             {% block content %}{% endblock content %}
