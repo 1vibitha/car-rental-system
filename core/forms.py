@@ -1,4 +1,4 @@
-import re
+
 from django import forms
 from django.contrib.auth.forms import UserCreationForm,AuthenticationForm
 from django.contrib.auth.models import User
@@ -44,7 +44,7 @@ class SignupForm(UserCreationForm):
     # Custom validation for password
     def clean_password1(self):
         password = self.cleaned_data.get('password1')
-        if len(password) < 8:
+        if len(password) < 5:
             raise forms.ValidationError("Password must be at least 8 characters long.")
         
         # Check for at least one special character
