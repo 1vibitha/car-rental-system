@@ -43,21 +43,32 @@ def detail(request, pk):
         'related_items':related_items
     })
 
-
 @login_required
 def new(request):
     if request.method == 'POST':
         form = NewItemForm(request.POST, request.FILES)
         if form.is_valid():
+            # Check if the user added a new category
+            new_category_name = form.cleaned_data.get('new_category')
+            if new_category_name:
+                # Create the new category
+                category = Category.objects.create(name=new_category_name)
+            else:
+                # Use the existing category
+                category = form.cleaned_data.get('category')
+
+            # Create the item
             item = form.save(commit=False)
             item.created_by = request.user
+            item.category = category  # Assign the selected or new category
             item.save()
+
             return redirect('item:detail', pk=item.id)
     else:
         form = NewItemForm()
 
     return render(request, 'item/form.html', {
-        'title': 'Edit Item',
+        'title': 'Add New Item',
         'form': form
     })
 

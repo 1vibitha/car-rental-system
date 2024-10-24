@@ -2,7 +2,7 @@
 {% load static %}
 {% block item %}active{% endblock item %}
 {% block content %}
-
+<br><br>
   <!-- Header End --> 
 <div class="header-carousel-fluid">
     <div id="carouselId" class="carousel slide" data-bs-ride="carousel" data-bs-interval="false">
@@ -13,7 +13,7 @@
         <div class="carousel-inner" role="listbox">
             <!-- Carousel Item with Blue Fade -->
             <div class="carousel-item active position-relative" style="position: relative;">
-                <img src="{% static 'img/fact-bg.jpg' %}" class="img-fluid w-100" alt="First slide" />
+                <img src="{% static 'img/fact-bg.jpg' %}" class="img-fluid w-100" style="height: 700px; width: 100%; object-fit: cover;"  alt="First slide" />
 
                 <!-- Blue fade overlay using inline style -->
                 <div style="
@@ -28,7 +28,7 @@
                 </div>
 
                 <div class="carousel-caption d-flex justify-content-center align-items-center" style="z-index: 4;">
-                    <div class="container py-4">
+                    <div class="container py-4" style="height: auto; max-height:115%;">
                         <div class="row g-5 justify-content-center">
                             <!-- Increase the width of the form container -->
                             <div class="col-lg-7 col-md-9">
@@ -38,7 +38,7 @@
                                                 padding-left: 20px; 
                                                 padding-right: 50px; 
                                                 padding-top: 10px; 
-                                                padding-bottom: 20px;" 
+                                                padding-bottom: 40px;" 
                                         data-animation="fadeInLeft" 
                                         data-delay="1s">
                                     <h4 class="display-6" style="color:white; margin-top: 10px; margin-bottom: 20px;">
@@ -53,11 +53,12 @@
                                                 <table class="table table-borderless" style="width: 100%; margin-bottom: 0;">
                                                     <tbody>
                                                         <tr class="text-center">
+                                                            <!-- Existing Category Dropdown -->
                                                             <td class="text-center" style="padding-right: 0;">
                                                                 {{ form.category.label_tag }}
                                                             </td>
                                                             <td class="text-center" style="padding-left: 0;">
-                                                                <select name="category" id="id_category" class="form-control square-select" style="margin: 0;">
+                                                                <select name="category" id="id_category" class="form-control square-select" style="margin: 0; width: 100%;">
                                                                     <option value="" disabled selected>--------------------------------------</option>
                                                                     {% for choice in form.category.field.queryset %}
                                                                     <option value="{{ choice.id }}" {% if choice.id == form.category.value %}selected{% endif %}>
@@ -67,6 +68,19 @@
                                                                 </select>
                                                             </td>
                                                         </tr>
+                                                        
+                                                        <!-- Row for New Category Input -->
+                                                        <tr class="text-center">
+                                                            <td class="text-center" style="padding-right: 0;">
+                                                                {{ form.new_category.label_tag }}
+                                                            </td>
+                                                            <td class="text-center" style="padding-left: 0;">
+                                                                <!-- Make the input field for new category the same size and style as the dropdown -->
+                                                                <input type="text" name="new_category" id="id_new_category" class="form-control square-select" style="margin: 0; width: 100%;" placeholder="Or Add New Category">
+                                                            </td>
+                                                        </tr>
+                                                        
+                                                    
                                                     </tbody>
                                                 </table>
                                             </div> 
@@ -75,6 +89,7 @@
                                                             <table class="table table-borderless">
                                                                 
                                                                 <tbody>
+                                                                   
                                 
                                                                     <tr>
                                                                         <td class="text-right" style="padding-right: 5px;">{{ form.name.label_tag }}</td>
@@ -161,4 +176,5 @@
                     </div>
                 </div>
             </div>
+            <br> <br>
             {% endblock content %}
