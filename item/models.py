@@ -1,26 +1,21 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+
 class Category(models.Model):
     name = models.CharField(max_length=255)
-    image = models.ImageField(upload_to='category_images', blank=True, null=True)
 
     class Meta:
         ordering = ('name',)
         verbose_name_plural = 'Categories'
 
-    def save(self, *args, **kwargs):
-        # Check if the category already has an image
-        if not self.image:
-            # Get the first item in the category
-            first_item = self.items.first()
-            if first_item and first_item.image:
-                self.image = first_item.image
-        super().save(*args, **kwargs)
-
+    def get_category_image(self):
+        # Get the first item in the category that has an image
+        first_item_with_image = self.items.filter(image__isnull=False).first()
+        # Return the image URL if an item with an image is found, else return None
+        return first_item_with_image.image.url if first_item_with_image else None
     def __str__(self) -> str:
         return self.name
-
 
 class Item(models.Model):
     category = models.ForeignKey(Category, related_name='items', on_delete=models.CASCADE)

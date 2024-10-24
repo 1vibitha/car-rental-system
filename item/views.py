@@ -2,8 +2,35 @@ from django.shortcuts import render, get_object_or_404, redirect
 from . models import Item, Category
 from django.contrib.auth.decorators import login_required
 from .forms import NewItemForm,EditItemForm
+from django.db.models import Q
 
 # Create your views here.
+
+
+def items(request):
+    query = request.GET.get('query', '')  # Search query
+    category_id = request.GET.get('category', 0)  # Category filter
+    items = Item.objects.filter(is_sold=False)  # Only get available items
+    categories = Category.objects.all()  # All categories
+
+    if category_id and category_id != '0':  # Filter by category if selected
+        items = items.filter(category_id=category_id)
+    if query:
+        items = items.filter(
+            Q(name__icontains=query) |
+            Q(company__icontains=query) |
+            Q(model__icontains=query) |
+            Q(price__icontains=query) |
+            Q(category__name__iexact=query) 
+        )
+
+    return render(request, 'item/items.html', {
+        'items': items,
+        'query': query,
+        'categories': categories,
+        'category_id': int(category_id),
+    })
+
 
 
 

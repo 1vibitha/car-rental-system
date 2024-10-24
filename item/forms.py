@@ -2,6 +2,7 @@
 from django import forms
 from .models import Item, Category
 
+
 INPUT_CLASSES = 'w-full py-4 px-6 rounded-xl border'
 
 class NewItemForm(forms.ModelForm):

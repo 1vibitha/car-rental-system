@@ -48,8 +48,7 @@
                                 
                                     <form action="." method="post" enctype="multipart/form-data" class="d-flex flex-column justify-content-center align-items-center">
                                         {% csrf_token %}
-                                        <div class="row g-2 justify-content-center">
-
+                                        <div class="row g-2 justify-content-center"> 
                                             <div class="col-10">
                                                 <table class="table table-borderless" style="width: 100%; margin-bottom: 0;">
                                                     <tbody>
@@ -70,10 +69,13 @@
                                                         </tr>
                                                     </tbody>
                                                 </table>
-                                            </div>
+                                            </div> 
+
        <div class="col-10 col-lg-6">
                                                             <table class="table table-borderless">
+                                                                
                                                                 <tbody>
+                                
                                                                     <tr>
                                                                         <td class="text-right" style="padding-right: 5px;">{{ form.name.label_tag }}</td>
                                                                         <td style="padding-left: 5px;">{{ form.name }}</td>

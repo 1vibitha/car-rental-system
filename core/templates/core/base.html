@@ -82,14 +82,11 @@
                             <a href="{% url 'dashboard:index' %}" class="nav-item nav-link {% block dashboard %}{% endblock dashboard %}">Dashboard</a>
                             <a href="{% url 'core:login' %}" class="nav-item nav-link {% block inbox %}{% endblock inbox %}">Inbox</a>
                             <a href="{% url 'item:new' %}" class="nav-item nav-link {% block item %}{% endblock item %}">Add Item</a>
+                            <a href="{% url 'item:items' %}" class="nav-item nav-link {% block  browse %}{% endblock browse %}">Browse</a>
                         </div>
                                                                 
                         <div class="nav-item  me-1">
-                            <form class="d-flex align-items-center" role="search">
-                                <input class="form-control form-control-sm me-2" type="search" placeholder="Search" aria-label="Search">
-                                <button class="btn btn-primary rounded-pill py-2 px-4" type="submit">Search</button> <!-- Changed to btn-danger for red color -->
-                            </form>
-                        </div>
+                      
                         <a href="{% url 'core:logout' %}" class="btn btn-primary rounded-pill py-2 px-4">Logout</a>
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         <a href="{% url 'core:profile' %}" class="btn btn-primary rounded-pill py-2 px-4">Edit profile</a>
