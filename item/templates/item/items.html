@@ -23,39 +23,59 @@
         <!-- Sidebar Start -->
         <br>
         <div class="col-md-3 bg-secondary text-white" style="padding: 10px;">
-        <br>
-        <h3 class="display-6 text-center" style="color: white;">
-            Search <img src="{% static 'img/car-icon.png' %}" alt="Car Icon" style="width: 40px; height: auto; margin-right: 10px;">
-        </h3>
+            <br>
+            <h3 class="display-6 text-center" style="color: white;">
+                Search 
+                <img src="{% static 'img/vintage-car.png' %}" alt="Car Icon" style="width: 100px; height: auto; margin-right: 10px;">
+            </h3>
             <br>
             <form method="get" action="{% url 'item:items' %}">
                 {% csrf_token %}
-                <input name="query" class="w-100 py-2 px-2 border rounded" type="text" value="{{ query }}" placeholder="          Search   for   Name,  Seat,  Price...... !!!">
+                <!-- Search input -->
+                <input name="query" class="w-100 py-2 px-2 border rounded" type="text" value="{{ query }}" placeholder="Search for Name, model, company...">
                 <div style="margin-top: 20px;" class="d-flex justify-content-end">
                     <button class="btn btn-outline-light btn-md">Search</button>
                 </div>
             </form>
             <hr class="my-2">
             <br>
-            <h4 class ="text-center"style="color: white; ">Categories</h4>
+        
+            <!-- Categories Section -->
+            <h4 class="text-center" style="color: white;">Categories</h4>
             <ul class="list-unstyled">
                 {% for category in categories %}
                     <li class="py-2{% if category.id == category_id %} bg-gray-200{% endif %}">
-                        <!-- Include both query and category in the URL -->
-                        <a href="{% url 'item:items' %}?query={{ query }}&category={{ category.id }}" class="text-white">
+                        <!-- Link with both query and category in the URL -->
+                        <a href="{% url 'item:items' %}?query={{ query }}&category={{ category.id }}&seats={{ seats }}" class="text-white">
                             {{ category.name }}
                         </a>
                     </li>
                 {% endfor %}
             </ul>
-            
             <hr class="my-2">
-            <p class="font-semibold">Clear Filters</p>
-      
-                <a href="{% url 'item:items' %}" class="btn btn-outline-light btn-md ">Clear</a>
-       
+            <br>
+        
+            <!-- Seats Filter Section -->
+            <h4 class="text-center" style="color: white;">Seats</h4>
+            <div class="seat-filter">
+                <form method="get" action="{% url 'item:items' %}">
+                    <!-- Filter by seats input -->
+                    <label for="seats" style="color: white;">Filter by Seats:</label>
+                    <input type="number" id="seats" name="seats" value="{{ seats }}" placeholder="Enter number of seats" class="form-control">
+                    <br>
+                    <button type="submit" class="btn btn-outline-light mt-2">Apply Filter</button>
+                </form>
+            </div>
+            <br>
+            <hr class="my-2">
+        
+            <!-- Clear Filters Section -->
+            <center>
+                <p class="font-semibold">Clear Filters</p>
+                <a href="{% url 'item:items' %}" class="btn btn-outline-light btn-md">Clear</a>
+            </center>
         </div>
-
+        
 
         <!-- Sidebar End -->
 
@@ -123,7 +143,7 @@
                                                 <div class="mb-4">
                                                     <h4 class="bg-white text-primary rounded-pill py-2 px-4 mb-0">Price: {{ item.price }} / Day</h4>
                                                 </div>
-                                                <a href="{% url 'item:detail' item.id %}" class="btn btn-primary" target="_blank">Show Details</a>
+                                                <a href="{% url 'item:detail' item.id %}" class="btn btn-primary" >Show Details</a>
                                             </div>
                                         </a>
                                     </div>

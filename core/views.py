@@ -16,9 +16,20 @@ def index(request):
         'categories' : categories,
         'items' : items
     })
+def category(request):
+    
+    return render(request, 'core/category.html')
 
 def contact(request):
     return render(request, 'core/contact.html')
+
+
+def ask_login(request):
+    action = request.GET.get('action', '')  # Get the action parameter from the URL
+    message = "Welcome! You need to log in to contact the seller." if action == "contact" else "Welcome! You need to log in to book the car."
+
+    return render(request, 'core/ask_login.html', {'message': message})
+
 def signup(request):
     if request.method == 'POST':
         form = SignupForm(request.POST)

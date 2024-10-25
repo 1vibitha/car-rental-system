@@ -134,12 +134,13 @@
     
 </div>
 {% else %}
-    <div class="d-flex justify-content-center mt-4">
-        
-            <a href="{% url 'core:login' %}" class="btn btn-primary me-4">Contact Seller</a>
-            <a href="{% url 'core:login' %}" class="btn btn-success">Book</a>
+{% if not user.is_authenticated %}
+<div class="d-flex justify-content-center mt-4">
+    <a href="{% url 'core:ask_login' %}?action=contact" class="btn btn-primary me-4">Contact Seller</a>
+    <a href="{% url 'core:ask_login' %}?action=book" class="btn btn-success">Book</a>
+</div>
+{% endif %}
 
-    </div>
     {% endif %}
 </center>
                 </div>
