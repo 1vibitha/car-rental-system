@@ -1,10 +1,8 @@
 {% extends "core/base.html" %}
 {% load static %}
-{% block item %}active{% endblock item %}
 {% block content %}
 <br><br>
-
-<!-- Carousel Start --> 
+<!-- Carousel Start -->
 <div class="header-carousel-fluid">
     <div id="carouselId" class="carousel slide" data-bs-ride="carousel" data-bs-interval="false">
         <ol class="carousel-indicators">
@@ -40,32 +38,34 @@
                                      data-delay="1s">
                                     <h3 class="display-6" style="color:white; margin-top: 10px; margin-bottom: 0px;">
                                         <img src="{% static 'img/wedding-car.png' %}" alt="Car Icon" style="width: 60px; height: auto; margin-right: 10px;">
-                                        Add New Car
+                                        Contact Us
                                     </h3>
                                     <br>
-                                    <form action="." method="post" class="d-flex flex-column justify-content-center align-items-center">
+                                    <br>
+                                    <form method="post" action="">
                                         {% csrf_token %}
-                                        <div class="col-10 col-lg-6">
-                                            <table class="table table-borderless">
+                                        <div class="col-10 col-lg-6" style="margin-left: 90px;">
+                                            <table class="table table-borderless align-center">
                                                 <tbody>
-                                                    
-                                                    <tr><td class="text-right">{{ form.content.label_tag }}</td><td>{{ form.content }}</td></tr>
+                                                    <tr>
+                                                        <td class="text-right">{{ form.content.label_tag }}</td>
+                                                        <td>{{ form.content }}</td>
+                                                    </tr>
                                                 </tbody>
                                             </table>
                                         </div>
-                                            {% if form.errors or form.non_field_errors %}
+
+                                        {% if form.errors or form.non_field_errors %}
                                             <div class="mb-3 p-6 bg-red-100 rounded-xl">
                                                 {% for field in form %}
                                                     {{ field.errors }}
                                                 {% endfor %}
                                                 {{ form.non_field_errors }}
                                             </div>
-                                            {% endif %}
-                                            <button class="btn btn-outline-light btn-lg">Send</button>
-                                            <br>
-                                            
-                                            {% comment %} <button type="submit" class="btn btn-outline-light btn-lg">Sign Up</button> {% endcomment %}
-                                        </form>
+                                        {% endif %}
+                                        <br>
+                                        <button type="submit" class="btn btn-outline-light btn-lg">Send</button>
+                                        <br>
                                     </form>
                                 </div>
                             </div> <!-- End of Form Container -->
@@ -79,6 +79,7 @@
 <!-- Carousel End -->
 <br><br>
 {% endblock content %}
+
 {% comment %} 
 
 

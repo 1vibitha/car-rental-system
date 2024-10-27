@@ -6,11 +6,11 @@
     <!-- Header Start -->
     <div class="container-fluid bg-breadcrumb">
         <div class="container text-center py-5" style="max-width: 900px;">
-            <h4 class="text-white display-4 mb-4 wow fadeInDown" data-wow-delay="0.1s">Contact Us</h4>
+            <h4 class="text-white display-4 mb-4 wow fadeInDown" data-wow-delay="0.1s">Inbox</h4>
             <ol class="breadcrumb d-flex justify-content-center mb-0 wow fadeInDown" data-wow-delay="0.3s">
                 <li class="breadcrumb-item"><a href="index.html">Home</a></li>
                 <li class="breadcrumb-item"><a href="#">Pages</a></li>
-                <li class="breadcrumb-item active text-primary">Contact</li>
+                <li class="breadcrumb-item active text-primary">Inbox</li>
             </ol>    
         </div>
     </div>
@@ -20,7 +20,7 @@
     <div class="container-fluid contact py-5">
         <div class="container py-5">
             <div class="text-center mx-auto pb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 800px;">
-                <h1 class="display-5 text-capitalize text-primary mb-3">Contact Us</h1>
+                <h1 class="display-5 text-capitalize text-primary mb-3">Inbox</h1>
                 <p class="mb-0">The contact form is currently inactive. Get a functional and working contact form with Ajax & PHP in a few minutes. Just copy and paste the files, add a little code and you're done. <a class="text-primary fw-bold" href="https://htmlcodex.com/contact-form">Download Now</a>.</p>
             </div>
             <div class="row g-5">
@@ -78,6 +78,7 @@
     <!-- Conversation List -->
     <div class="col-12 col-xl-8 wow fadeInUp" data-wow-delay="0.1s">
         <div class="p-5 bg-secondary rounded">
+            {% if conversations %}
             {% for conversation in conversations %}
             <div class=" rounded p-0 mb-4" style="background-color: #D3D3D3;">
             
@@ -85,7 +86,7 @@
                     <div class="d-flex align-items-center bg-gray-100 rounded p-3 mb-3">
                         <!-- Adjusted Image Size -->
                                         <div class="me-3">
-                                            <img src="{{ conversation.item.image.url }}" style="width: 120px; height: 60px; object-fit: cover;" class="rounded" alt="">
+                                            <img src="{{ conversation.item.image.url }}" style="width: 50px; height: 60px; object-fit: cover;" class="rounded" alt="">
                                         </div>
                                         <!-- Text Content -->
                                         <div>
@@ -101,6 +102,9 @@
                             </div>
                             
                             {% endfor %}
+                            {% else %}
+                            <p style="color:white;">No conversations yet!!!!</p>
+                            {% endif %}
                         </div>
                 </div>
                 

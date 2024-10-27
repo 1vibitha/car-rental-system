@@ -3,16 +3,8 @@ from django.shortcuts import render, redirect, get_object_or_404
 from . models import Conversation
 from item.models import Item
 from . forms import ConversationMessageForm
-from django import template
+
 # Create your views here.
-
-
-register = template.Library()
-
-@register.filter
-def add_class(field, css_class):
-    return field.as_widget(attrs={'class': css_class})
-
 
 @login_required
 def new_conversation(request, item_pk):
@@ -24,7 +16,7 @@ def new_conversation(request, item_pk):
     conversations = Conversation.objects.filter(item=item).filter(members__in=[request.user.id])
 
     if conversations:
-        return redirect('conversation:detail', pk=conversations.first().id)
+        return redirect('conversation:new', pk=conversations.first().id)
 
     if request.method == 'POST':
         form = ConversationMessageForm(request.POST)
@@ -40,15 +32,13 @@ def new_conversation(request, item_pk):
             conversation_message.created_by = request.user
             conversation_message.save()
 
-            return redirect ('conversation:detail', pk=item_pk)
+            return redirect('conversation:detail', pk=conversation.pk)
     else:
         form = ConversationMessageForm()
 
     return render(request, 'conversation/new.html', {
-        'form':form
+        'form': form
     })
-
-
 
 @login_required
 def inbox(request):

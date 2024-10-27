@@ -1,0 +1,139 @@
+{% extends "core/base.html" %}
+{% load static %}
+<!-- Include Bootstrap Datepicker CSS and JS -->
+
+{% block content %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+
+<!-- Carousel Start -->
+<div class="header-carousel" style="height: 150vh; width: 99vw; overflow: hidden;">
+    <div id="carouselId" class="carousel slide" data-bs-ride="carousel" data-bs-interval="false" style="height: 100%;">
+        <ol class="carousel-indicators">
+            <li data-bs-target="#carouselId" data-bs-slide-to="0" class="active" aria-current="true" aria-label="First slide"></li>
+            <li data-bs-target="#carouselId" data-bs-slide-to="1" aria-label="Second slide"></li>
+        </ol>
+        <div class="carousel-inner" role="listbox" style="height: 100%;">
+            <div class="carousel-item active d-flex justify-content-center align-items-center" style="height: 100%;">
+                <img src="{% static 'img/fact-bg.jpg' %}" class="img-fluid w-100" style="height: 100%; object-fit: cover;" alt="First slide" />
+                <div style="
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background: linear-gradient(180deg, rgba(0, 0, 255, 0.5) 0%, rgba(0, 0, 255, 0.2) 50%, rgba(0, 0, 255, 0) 100%);
+                    z-index: 1;
+                    pointer-events: none;">
+                </div>
+
+                <div class="carousel-caption d-flex justify-content-center align-items-start" style="z-index: 2; top: 0px;">
+                    <div class="container" style="max-width: 90%; padding: 30px 0;">
+                        <div class="row g-5 justify-content-center">
+                            <div class="col-xl-6 wow fadeInUp" data-wow-delay="0.1s">
+                                <div class="bg-secondary p-5 rounded" style="background: rgba(0, 0, 0, 0.75);">
+                                    <h3 class="display-8" style="color:white; margin-top: 10px; margin-bottom: 0px;">
+                                        <img src="{% static 'img/wedding-car.png' %}" alt="Car Icon" style="width: 80px; height: auto; margin-right: 10px;">
+                                        Payment for {{ booking.item.name }}
+                                        <br><br>
+                                    </h3>
+                                    <form method="post">
+                                        {% csrf_token %}
+                                        
+                                        <!-- Payment Method Selection -->
+                                        <div class="col-12 mb-3">
+                                            <h5 style="color: rgb(255, 212, 0);">Select Payment Method:</h5>
+                                            <br>
+                                            <div>
+                                                <label style="margin-bottom: 10px; margin-left: 20px;">
+                                                    <input type="radio" name="payment_method" value="card" onclick="togglePaymentDetails()"> Credit/Debit Card
+                                                </label>
+                                                <br>
+                                                <label style="margin-bottom: 10px; margin-left: 20px;">
+                                                    <input type="radio" name="payment_method" value="upi" onclick="togglePaymentDetails()"> UPI
+                                                </label>
+                                            </div>
+                                        </div>
+                                        
+                                        <!-- Card Details -->
+                                        <div id="card-details" style="display: none;" class="col-12">
+                                            <div class="form-floating mb-3">
+                                                <input type="text" name="card_number" id="id_card_number" placeholder="Card Number"  value="{{ form.card_number.value|default:'' }}"
+                                                       style="width: 60%; height: 45px; border-radius: 15px;">
+                                            </div>
+                                            <div class="form-floating mb-3">
+                                                <input type="text" name="card_name" id="id_card_name" placeholder="Name on Card" value="{{ form.card_name.value|default:'' }}"
+                                                       style="width: 60%; height: 45px; border-radius: 15px;">
+                                            </div>
+                                            <div class="form-floating mb-3">
+                                                <input type="text" name="cvv" id="id_cvv" placeholder="CVV" value="{{ form.cvv.value|default:'' }}"
+                                                       style="width: 60%; height: 45px; border-radius: 15px;">
+                                            </div>
+                                            <div class="form-floating mb-3">
+                                                <input type="text" name="expiry_date" id="id_expiry_date" placeholder="Expiry Date (MM/YY)" 
+                                                       class="datepicker" value="{{ form.expiry_date.value|default:'' }}"
+                                                       style="width: 60%; height: 45px; border-radius: 15px;" autocomplete="off">
+                                            </div>
+                                        </div>
+                                    
+                                        <!-- UPI Details -->
+                                        <div id="upi-details" style="display: none;" class="col-12">
+                                            <div class="form-floating mb-3">
+                                                <input type="text" name="upi_id" id="id_upi_id" placeholder="UPI ID" value="{{ form.upi_id.value|default:'' }}"
+                                                       style="width: 60%; height: 45px; border-radius: 15px;">
+                                            </div>
+                                        </div>
+                                        <br>
+                
+                                        <div class="col-12">
+                                            <button type="submit" class="btn btn-outline-light btn-lg">Confirm Payment</button>
+                                        </div>
+                                    </form>
+                                    
+                                    <script>
+                                        function togglePaymentDetails() {
+                                            const cardDetails = document.getElementById('card-details');
+                                            const upiDetails = document.getElementById('upi-details');
+                                            
+                                            // Reset both fields
+                                            cardDetails.style.display = 'none';
+                                            upiDetails.style.display = 'none';
+                                            
+                                            // Show relevant field based on selected payment method
+                                            const selectedPaymentMethod = document.querySelector('input[name="payment_method"]:checked');
+                                            if (selectedPaymentMethod) {
+                                                if (selectedPaymentMethod.value === 'card') {
+                                                    cardDetails.style.display = 'block';
+                                                } else if (selectedPaymentMethod.value === 'upi') {
+                                                    upiDetails.style.display = 'block';
+                                                }
+                                            }
+                                        }
+                                    
+                                        // Initialize datepicker
+                                        $(document).ready(function(){
+                                            $('.datepicker').datepicker({
+                                                format: "mm/yyyy",
+                                                startView: "months",
+                                                minViewMode: "months",
+                                                autoclose: true
+                                            });
+                                        });
+                                    </script>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Carousel End -->
+{% endblock content %}

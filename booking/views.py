@@ -5,13 +5,14 @@
 from django.shortcuts import render, redirect
 from django.core.mail import send_mail
 from django.conf import settings
-from .forms import BookingForm
+from .forms import BookingForm, PaymentForm 
 from item.models import Item
 from django.contrib.auth.decorators import login_required
 from .models import Booking
 from django.shortcuts import get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from .models import Booking, Item
+
 
 @login_required
 def rented_items(request):
@@ -39,10 +40,15 @@ from .models import Booking
 from django.shortcuts import get_object_or_404, redirect
 from django.core.mail import send_mail
 from django.conf import settings
+from django.shortcuts import render, redirect, get_object_or_404
+from django.core.mail import send_mail
+from django.contrib.auth.decorators import login_required
+from .models import Item, Booking
+from .forms import BookingForm, PaymentForm  # Assume you create a PaymentForm in forms.py
 
 @login_required
 def book_car(request, item_id):
-    item = get_object_or_404(Item, id=item_id)  # Use get_object_or_404 for better error handling
+    item = get_object_or_404(Item, id=item_id)
 
     if request.method == 'POST':
         form = BookingForm(request.POST)
@@ -67,21 +73,44 @@ def book_car(request, item_id):
 
             # Set item as sold
             item.is_sold = True
-            item.save()  # Save to update is_sold status in the database
+            item.save()
 
-            # Send confirmation email
-            subject = f'Car Booking Confirmation for {item.name}'
+            # Store booking ID in session to retrieve it in the next step
+            request.session['booking_id'] = booking.id
+
+            # Redirect to the payment form
+            return redirect('booking:payment')
+    else:
+        form = BookingForm()
+
+    return render(request, 'booking/booking.html', {
+        'form': form,
+        'item': item
+    })
+
+@login_required
+def payment(request):
+    booking_id = request.session.get('booking_id')
+    booking = get_object_or_404(Booking, id=booking_id)
+
+    if request.method == 'POST':
+        payment_form = PaymentForm(request.POST)
+        if payment_form.is_valid():
+            # Here you would handle the payment logic, like verifying UPI or QR code.
+
+            # Send confirmation email after successful payment
+            subject = f'Car Booking Confirmation for {booking.item.name}'
             message = f"""
-            Dear {name},
+            Dear {booking.name},
 
-            Thank you for booking {item.name}!
+            Thank you for booking {booking.item.name}!
 
             Here are your booking details:
-            - Name: {name}
-            - Email: {email}
-            - Phone: {phone}
-            - Address: {address}
-            - Pincode: {pincode}
+            - Name: {booking.name}
+            - Email: {booking.email}
+            - Phone: {booking.phone}
+            - Address: {booking.address}
+            - Pincode: {booking.pincode}
 
             The car will be delivered to the provided address.
 
@@ -91,14 +120,21 @@ def book_car(request, item_id):
             Your Car Rental Service
             """
             from_email = settings.DEFAULT_FROM_EMAIL
-            send_mail(subject, message, from_email, [email])
+            send_mail(subject, message, from_email, [booking.email])
 
-            # Redirect to a success page or rented items page
-            return redirect('booking:rented_items')
+            # Clear the session booking_id
+            del request.session['booking_id']
+
+            # Redirect to a success page
+            return redirect('booking:success')
+
     else:
-        form = BookingForm()
+        payment_form = PaymentForm()
 
-    return render(request, 'booking/booking.html', {
-        'form': form,
-        'item': item
+    return render(request, 'booking/payment.html', {
+        'payment_form': payment_form,
+        'booking': booking
     })
+
+def booking_success(request):
+    return render(request, 'booking/success.html')

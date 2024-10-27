@@ -102,6 +102,11 @@
                                                         <tr>
                                                             <td class="text-center">{{ form.image.label_tag }}</td>
                                                             <td class="text-center">{{ form.image }}</td>
+                                                            {% if item.image %}
+                                                            <div>
+                                                                <img src="{{ item.image.url }}" alt="{{ item.name }}" style="max-width: 100%; height: auto;" />
+                                                            </div>
+                                                        {% endif %}
                                                         </tr>
                                                     </tbody>
                                                 </table>

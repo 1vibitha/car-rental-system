@@ -7,9 +7,9 @@ class ConversationMessageForm(forms.ModelForm):
         model = ConversationMessage
         fields = ('content',)
         widgets = {
-            'content': forms.TextInput(attrs={
-                'placeholder': 'Your the message',
-                'class': INPUT_CLASSES,
-                'style': 'width: 60%; height: 70px;',
-            }),
+            'content': forms.Textarea(attrs={
+                'class': 'w-full py-2 px-3 rounded-sm border',
+                'rows': 3,  # Adjust the number of rows to make it smaller
+                'style': 'width: 300px;',  # Adjust the width as needed
+            })
         }

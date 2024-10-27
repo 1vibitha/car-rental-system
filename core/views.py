@@ -47,15 +47,20 @@ def signup(request):
 def log(request):
     items = Item.objects.all()# Get a few items for display
     categories = Category.objects.all()
+    filter_item = Item.objects.exclude(created_by=request.user)
+    
 
     # Calculate the count of items per category that are not created by the logged-in user
     for category in categories:
         category.item_count = category.items.exclude(created_by=request.user).count()
 
+
     return render(request, 'core/index2.html', {
         'categories': categories,
-        'items': items
+        'items': items,
+        'filter_item': filter_item
     })
+
 def logout(request):
     auth_logout(request)
     return redirect('core:index') 
