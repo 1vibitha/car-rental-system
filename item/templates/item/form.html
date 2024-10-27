@@ -2,19 +2,18 @@
 {% load static %}
 {% block item %}active{% endblock item %}
 {% block content %}
-<br><br>
 
-<!-- Carousel Start --> 
-<div class="header-carousel-fluid">
-    <div id="carouselId" class="carousel slide" data-bs-ride="carousel" data-bs-interval="false">
+<!-- Carousel Start -->
+<div class="header-carousel" style="height: 150vh; width: 99vw; overflow: hidden;">
+    <div id="carouselId" class="carousel slide" data-bs-ride="carousel" data-bs-interval="false" style="height: 100%;">
         <ol class="carousel-indicators">
             <li data-bs-target="#carouselId" data-bs-slide-to="0" class="active" aria-current="true" aria-label="First slide"></li>
             <li data-bs-target="#carouselId" data-bs-slide-to="1" aria-label="Second slide"></li>
         </ol>
-        <div class="carousel-inner" role="listbox">
-            <!-- Carousel Item with Blue Fade -->
-            <div class="carousel-item active position-relative">
-                <img src="{% static 'img/fact-bg.jpg' %}" class="img-fluid w-100" style="height: 700px; width: 100%; object-fit: cover;" alt="First slide" />
+        <div class="carousel-inner" role="listbox" style="height: 100%;">
+            <div class="carousel-item active d-flex justify-content-center align-items-center" style="height: 100%;">
+                <!-- Carousel Image with Full Height -->
+                <img src="{% static 'img/fact-bg.jpg' %}" class="img-fluid w-100" style="height: 100%; object-fit: cover;" alt="First slide" />
 
                 <!-- Blue fade overlay using inline style -->
                 <div style="
@@ -28,18 +27,18 @@
                     pointer-events: none;">
                 </div>
 
-                <!-- Centered Form Container with Spacing Adjustments -->
-                <div class="carousel-caption d-flex justify-content-center align-items-center" style="z-index: 2; padding-top: 40px; padding-bottom: 40px;">
-                    <div class="container py-4" style="max-width: 80%;">
+                <!-- Form Container Positioned in Center, Smaller Width and Height -->
+                
+                <div class="carousel-caption d-flex justify-content-center align-items-start" style="z-index: 2; top: 0px;">
+                    <div class="container" style="max-width: 70%; padding: 30px 40px;">
                         <div class="row g-5 justify-content-center">
-                            <div class="col-lg-7 col-md-9">
-                                <!-- Form Background Styling -->
+                            <div class="col-lg-12 col-md-12">
                                 <div class="bg-secondary text-center fadeInLeft animated"
-                                     style="background: rgba(0, 0, 0, 0.75); padding: 20px 50px 40px 20px;" 
+                                     style="background: rgba(0, 0, 0, 0.75); padding: 30px 40px;" 
                                      data-animation="fadeInLeft" 
                                      data-delay="1s">
-                                    <h3 class="display-6" style="color:white; margin-top: 10px; margin-bottom: 0px;">
-                                        <img src="{% static 'img/wedding-car.png' %}" alt="Car Icon" style="width: 60px; height: auto; margin-right: 10px;">
+                                    <h3 class="display-6" style="color:white; margin-top: 20px; margin-bottom: 0px;">
+                                        <img src="{% static 'img/wedding-car.png' %}" alt="Car Icon" style="width: 50px; height: auto; margin-right: 10px;">
                                         Add New Car
                                     </h3>
                                     <br>

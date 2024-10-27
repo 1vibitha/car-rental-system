@@ -1,61 +1,89 @@
-<!-- rented_items.html -->
-{% extends 'core/base.html' %}
 
-    {% block content %}
-    <br>
-<br>
-<br>
-<br><br><br><br><br>
-    <div style="margin: 0; padding: 0;">  <!-- Adjusting outer margin and padding -->
-        <div class="d-flex justify-content-center" style="margin: 0;">  <!-- Centering the box without extra margin -->
-            <div class="col-xl-6 wow fadeInUp" data-wow-delay="0.1s">
-                <div class="bg-secondary p-3 rounded" style="padding: 20px; width: auto; max-width: 1000px;"> 
-                    <br><!-- Reduced padding -->
-                    <h4 class="text-primary mb-4 text-center ">Your Rented Items</h4>
-    
-                    {% if bookings %}
-                    <table class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th style="color: white;">Item Name</th>
-                                <th style="color: white;">Email</th>
-                                <th style="color: white;">Phone</th>
-                                <th style="color: white;">Address</th>
-                                <th style="color: white;">Pincode</th>
-                                <th style="color: white;">Booking Date</th>
-                                <th style="color: white;">Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {% for booking in bookings %}
-                            <tr>
-                                <td style="color: white;">{{ booking.item.name }}</td>
-                                <td style="color: white;">{{ booking.email }}</td>
-                                <td style="color: white;">{{ booking.phone }}</td>
-                                <td style="color: white;">{{ booking.address }}</td>
-                                <td style="color: white;">{{ booking.pincode }}</td>
-                                <td style="color: white;">{{ booking.booking_date|date:"Y-m-d H:i:s" }}</td>
-                                <td>
-                                    <form method="post" style="display:inline;">
-                                        {% csrf_token %}
-                                        <input type="hidden" name="booking_id" value="{{ booking.id }}">
-                                        <button type="submit" class="btn btn-danger btn-sm">Cancel</button>
-                                    </form>
-                                </td>
-                            </tr>
-                            {% endfor %}
-                        </tbody>
-                    </table>
-                    {% else %}
-                    <p style="color: white;">You have not rented any items yet.</p>
-                    {% endif %}
+{% extends "core/base.html" %}{% load static %}
+{% block book %}active{% endblock book %}
+{% block content %}
+
+
+
+<!-- Carousel Start -->
+<div class="header-carousel" style="height: 200vh; width: 99vw; overflow: hidden;">
+    <div id="carouselId" class="carousel slide" data-bs-ride="false" data-bs-interval="false" style="height: 100%;">
+
+        <br>
+        <div class="carousel-inner" role="listbox" style="height: 100%;">
+            <div class="carousel-item active d-flex justify-content-center align-items-center" style="height: 100%;">
+                <img src="{% static 'img/fact-bg.jpg' %}" class="img-fluid w-100" style="height: 100%; object-fit: cover;" alt="First slide" />
+                <div style="
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background: linear-gradient(180deg, rgba(0, 0, 255, 0.5) 0%, rgba(0, 0, 255, 0.2) 50%, rgba(0, 0, 255, 0) 100%);
+                    z-index: 1;
+                    pointer-events: none;">
+                </div>
+                <div class="carousel-caption d-flex justify-content-center align-items-start" style="z-index: 2; top: 0px;">
+                    <div class="container" style="max-width: 70%; padding: 30px 0;">
+                        <div class="row g-5 justify-content-center">
+                            <div class="col-lg-12 col-md-12">
+                                <div class="bg-secondary text-center fadeInLeft animated"
+                                     style="background: rgba(0, 0, 0, 0.75); padding: 30px 40px;" 
+                                     data-animation="fadeInLeft" 
+                                     data-delay="1s">
+                                    <h3 class="display-6" style="color:white; margin-top: 10px; margin-bottom: 0px;">
+                                        <img src="{% static 'img/wedding-car.png' %}" alt="Car Icon" style="width: 50px; height: auto; margin-right: 10px;">
+                                        Your Rented Items
+                                    </h3>
+                                    <br>
+                                    <br>
+                                    {% if bookings %}
+                                    <div class="table-responsive">
+                                        <table class="table table-borderless">
+                                            <thead>
+                                                <tr>
+                                                    <th style="color: white;">Item Name</th>
+                                                    <th style="color: white;">Email</th>
+                                                    <th style="color: white;">Phone</th>
+                                                    <th style="color: white;">Address</th>
+                                                    <th style="color: white;">Pincode</th>
+                                                    <th style="color: white;">Booking Date</th>
+                                                    <th style="color: white;">Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {% for booking in bookings %}
+                                                <tr class="p-0 mb-4" style="background-color: #D3D3D3;">
+                                                    <td style="color: rgb(60, 60, 60);">{{ booking.item.name }}</td>
+                                                    <td style="color: rgb(60, 60, 60);">{{ booking.email }}</td>
+                                                    <td style="color: rgb(60, 60, 60);">{{ booking.phone }}</td>
+                                                    <td style="color: rgb(60, 60, 60); white-space: normal;">{{ booking.address|linebreaksbr }}</td>
+                                                    <td style="color: rgb(60, 60, 60);">{{ booking.pincode }}</td>
+                                                    <td style="color: rgb(60, 60, 60);">{{ booking.booking_date|date:"Y-m-d H:i:s" }}</td>
+                                                    <td>
+                                                        <form method="post" style="display:inline;">
+                                                            {% csrf_token %}
+                                                            <input type="hidden" name="booking_id" value="{{ booking.id }}">
+                                                            <button type="submit" class="btn btn-danger btn-sm">Cancel</button>
+                                                        </form>
+                                                    </td>
+                                                </tr>
+                                                {% endfor %}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    {% else %}
+                                    <p style="color: white;">You have not rented any items yet.</p>
+                                    {% endif %}
+                                </div>
+                            </div> <!-- End of Form Container -->
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-    <br>
-<br>
-<br>
-<br><br><br><br><br>
-    {% endblock %}
-    
+</div>
+<!-- Carousel End -->
+<br><br>
+{% endblock content %}
