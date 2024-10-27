@@ -6,42 +6,38 @@ from django.db.models import Q
 
 # Create your views here.
 from django.db.models import Q
+from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
+from .models import Item, Category
 
+@login_required
 def items(request):
-    query = request.GET.get('query', '')  # Search query
-    category_id = request.GET.get('category', 0)  # Category filter
-    seats = request.GET.get('seats', '')  # Seat filter (as a string)
-    items = Item.objects.filter(is_sold=False)  # Only get available items
-    categories = Category.objects.all()  # All categories
+    query = request.GET.get('query', '')
+    category_id = request.GET.get('category')
+    seats = request.GET.get('seats')
 
-    # Filter by category if selected
-    if category_id and category_id != '0':
-        items = items.filter(category_id=category_id)
+    # Build the initial queryset, excluding items created by the logged-in user
+    items = Item.objects.filter(is_sold=False).exclude(created_by=request.user)  
 
-    # Filter by query (searching by name, company, model, or category)
+    # Apply filters based on the search query
     if query:
-        items = items.filter(
-            Q(name__icontains=query) |
-            Q(company__icontains=query) |
-            Q(model__icontains=query) |
-            Q(category__name__iexact=query)
-        )
+        items = items.filter(name__icontains=query)  # Search by name if a query is provided
 
-    # Filter by seat number if provided and it's a valid digit
-    if seats.isdigit():
-        items = items.filter(seats=int(seats))  # Correct field is `seats`
+    if category_id:
+        items = items.filter(category_id=category_id)  # Filter by selected category
 
-    # Render the template with the filtered items and form values
+    if seats:
+        items = items.filter(seats__gte=seats)  # Filter by seats if provided
+
+    categories = Category.objects.all()  # Fetch categories for the sidebar
+
     return render(request, 'item/items.html', {
         'items': items,
         'query': query,
         'categories': categories,
-        'category_id': int(category_id),
-        'seats': seats,  # Pass the seats back to the template
+        'category_id': category_id,
+        'seats': seats,
     })
-
-
-
 
 def detail(request, pk):
     item = get_object_or_404(Item, pk=pk)

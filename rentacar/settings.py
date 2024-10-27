@@ -23,6 +23,15 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-a4fuhtfa+$7rac!i03b(md8z0f(+l-#hrcsio&8ycrwp&m1+_*'
 
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'carrentalsystem.2024@gmail.com' 
+EMAIL_HOST_PASSWORD = 'itvlioatskmdtsip'  # Your email password
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
@@ -39,6 +48,7 @@ INSTALLED_APPS = [
     'core',
     'dashboard',
     'conversation',
+    'booking',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

@@ -1,0 +1,78 @@
+{% extends "core/base.html" %}
+{% comment %} {% block content %}
+<!-- book.html -->
+
+<div class="container">
+    <h2>Book {{ item.name }}</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}  <!-- Render the form fields -->
+        <button type="submit" class="btn btn-primary">Book Now</button>
+    </form>
+</div> {% endcomment %}
+<br>
+{% block content %}
+<br><br>
+<div class="col-xl-6 wow fadeInUp" data-wow-delay="0.1s">
+    <div class="bg-secondary p-5 rounded">
+        <h4 class="text-primary mb-4">Book {{ item.name }}</h4>
+
+    {% if item.is_sold %}
+    <div class="alert alert-danger">
+        This car has already been booked and is not available for booking.
+    </div>
+{% else %}
+        <form method="post">
+            {% csrf_token %}
+            <div class="row g-4">
+                <div class="col-lg-12 col-xl-6">
+                    <div class="form-floating">
+                        <input type="text" name="name" id="id_name" placeholder="Your Name" 
+                               value="{{ form.name.value|default:'' }}" 
+                               style="width: 100%; height: 40px; border-radius: 15px;">
+                       
+                    </div>
+                </div>
+                <div class="col-lg-12 col-xl-6">
+                    <div class="form-floating">
+                        <input type="email" name="email" id="id_email" placeholder="Your Email" 
+                               value="{{ form.email.value|default:'' }}" 
+                               style="width: 100%; height: 40px; border-radius: 15px;">
+                        
+                    </div>
+                </div>
+                <div class="col-lg-12 col-xl-6">
+                    <div class="form-floating">
+                        <input type="text" name="phone" id="id_phone" placeholder="Your Phone" 
+                               value="{{ form.phone.value|default:'' }}" 
+                               style="width: 100%; height: 40px; border-radius: 15px;">
+                       
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="form-floating">
+                        <input type="text" name="pincode" id="id_pincode" placeholder="Pincode" 
+                               value="{{ form.pincode.value|default:'' }}" 
+                               style="width: 100%; height: 40px; border-radius: 15px;">
+                       
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="form-floating">
+                        <textarea name="address" id="id_address" placeholder="Address" 
+                                  style="width: 100%; height: 100px; border-radius: 15px;">{{ form.address.value|default:'' }}</textarea>
+                      
+                    </div>
+                </div>
+                <div class="col-12">
+                    <button type="submit" class="btn btn-primary">Book Now</button>
+                </div>
+            </div>
+        </form>
+        {% endif %}
+    </div>
+   
+</div>
+<br>
+<br>
+{% endblock content %}

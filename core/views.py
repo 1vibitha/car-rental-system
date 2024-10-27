@@ -7,6 +7,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import update_session_auth_hash
 from .forms import EditProfileForm, CustomPasswordChangeForm
 from django.contrib.auth import logout as auth_logout
+
 # Create your views here.
 def index(request):
     items = Item.objects.filter(is_sold=False)[0:6]
@@ -41,15 +42,20 @@ def signup(request):
     return render(request, 'core/signup.html', {
         'form' : form
     })
+
+@login_required  # Ensure the user is logged in
 def log(request):
-    items = Item.objects.filter(is_sold=False)[0:6]
+    items = Item.objects.all()# Get a few items for display
     categories = Category.objects.all()
 
-    return render(request, 'core/index2.html', {
-        'categories' : categories,
-        'items' : items
-    })
+    # Calculate the count of items per category that are not created by the logged-in user
+    for category in categories:
+        category.item_count = category.items.exclude(created_by=request.user).count()
 
+    return render(request, 'core/index2.html', {
+        'categories': categories,
+        'items': items
+    })
 def logout(request):
     auth_logout(request)
     return redirect('core:index') 

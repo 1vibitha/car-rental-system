@@ -121,6 +121,22 @@
                         </div>
                     </div>
                     <hr>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <h6 class="mb-0">Is Sold</h6>
+                        </div>
+                        <div class="col-sm-9 text-secondary">
+                            {% if item.is_sold %}
+                                <!-- Display a green tick mark if item is sold -->
+                                <span style="color: green;">&#x2705;</span> <!-- Unicode for a green tick -->
+                            {% else %}
+                                <!-- Display a cross mark in a box if item is not sold -->
+                                <span style="color: red;">&#x274C;</span> <!-- Unicode for a cross mark in a box -->
+                            {% endif %}
+                        </div>
+                    </div>
+                    <hr>
+                    
 <center>
     <br>
 {% if request.user == item.created_by %}
@@ -138,6 +154,11 @@
 <div class="d-flex justify-content-center mt-4">
     <a href="{% url 'core:ask_login' %}?action=contact" class="btn btn-primary me-4">Contact Seller</a>
     <a href="{% url 'core:ask_login' %}?action=book" class="btn btn-success">Book</a>
+</div>
+{% else %}
+<div class="d-flex justify-content-center mt-4">
+    <a href="{% url 'conversation:new' item.id %}" class="btn btn-primary me-4">Contact Seller</a>
+    <a href="{% url 'booking:book_car' item.id %}" class="btn btn-success">Book</a>
 </div>
 {% endif %}
 

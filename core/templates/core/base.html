@@ -80,8 +80,9 @@
                         <a href="{% url 'core:log' %}" class="nav-item nav-link {% block home2 %}{% endblock home2 %}">Home</a>
       
                             <a href="{% url 'dashboard:index' %}" class="nav-item nav-link {% block dashboard %}{% endblock dashboard %}">Dashboard</a>
-                            <a href="{% url 'core:login' %}" class="nav-item nav-link {% block inbox %}{% endblock inbox %}">Inbox</a>
+                            <a href="{% url 'conversation:inbox' %}" class="nav-item nav-link {% block inbox %}{% endblock inbox %}">Inbox</a>
                             <a href="{% url 'item:new' %}" class="nav-item nav-link {% block item %}{% endblock item %}">Add Item</a>
+                            <a href="{% url 'booking:rented_items' %}" class="nav-item nav-link {% block book %}{% endblock book %}">Book</a>
                             <a href="{% url 'item:items' %}" class="nav-item nav-link {% block  browse %}{% endblock browse %}">Browse</a>
                         </div>
                                                                 
