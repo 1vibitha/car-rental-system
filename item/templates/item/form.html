@@ -44,6 +44,21 @@
                                     <br>
                                     <form action="." method="post" enctype="multipart/form-data" class="d-flex flex-column justify-content-center align-items-center">
                                         {% csrf_token %}
+                                     <!-- Error Display -->
+{% if form.errors %}
+<div class="mb-3 p-3 bg-danger text-white rounded" style="margin-bottom: 20px; width: 100%;">
+    <ul>
+        {% for field in form %}
+            {% for error in field.errors %}
+                <li>{{ error }}</li>
+            {% endfor %}
+        {% endfor %}
+        {% for error in form.non_field_errors %}
+            <li>{{ error }}</li>
+        {% endfor %}
+    </ul>
+</div>
+{% endif %}
                                         <div class="row g-2 justify-content-center"> 
                                             <div class="col-10">
                                                 <table class="table table-borderless" style="width: 100%; margin-bottom: 0;">
@@ -104,7 +119,7 @@
                                                             <td class="text-center">{{ form.image }}</td>
                                                             {% if item.image %}
                                                             <div>
-                                                                <img src="{{ item.image.url }}" alt="{{ item.name }}" style="max-width: 100%; height: auto;" />
+                                                                <img src="{{ item.image.url }}" alt="{{ item.name }}" style="max-width: 50%; height: 10%;" />
                                                             </div>
                                                         {% endif %}
                                                         </tr>
@@ -119,17 +134,7 @@
                                         </div>
                                         
                                         <!-- Error Display -->
-                                        {% if form.errors %}
-                                        <div class="mb-3 p-3 bg-danger text-white rounded" style="margin-top: 10px;">
-                                            <ul>
-                                                {% for field in form %}
-                                                {% for error in field.errors %}
-                                                <li>{{ error }}</li>
-                                                {% endfor %}
-                                                {% endfor %}
-                                            </ul>
-                                        </div>
-                                        {% endif %}
+                                    
                                     </form>
                                 </div>
                             </div> <!-- End of Form Container -->
@@ -142,4 +147,4 @@
 </div>
 <!-- Carousel End -->
 <br><br>
-{% endblock content %}
+{% endblock content %} 

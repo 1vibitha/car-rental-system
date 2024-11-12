@@ -35,9 +35,19 @@
                                 <div class="bg-secondary p-5 rounded" style="background: rgba(0, 0, 0, 0.75);">
                                     <h3 class="display-8" style="color:white; margin-top: 10px; margin-bottom: 0px;">
                                         <img src="{% static 'img/wedding-car.png' %}" alt="Car Icon" style="width: 80px; height: auto; margin-right: 10px;">
-                                        Payment for {{ booking.item.name }}
-                                        <br><br>
+                                        Payment for {{ item.name }}
                                     </h3>
+                                
+                                    <!-- Display form errors -->
+                                    {% if payment_form.errors %}
+                                    <div class="alert alert-danger">
+                                        <ul>
+                                            {% for field, errors in payment_form.errors.items %}
+                                                <li>{{ errors|join:", " }}</li>
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+                                    {% endif %}
                                     <form method="post">
                                         {% csrf_token %}
                                         
@@ -56,27 +66,32 @@
                                             </div>
                                         </div>
                                         
-                                        <!-- Card Details -->
                                         <div id="card-details" style="display: none;" class="col-12">
                                             <div class="form-floating mb-3">
-                                                <input type="text" name="card_number" id="id_card_number" placeholder="Card Number"  value="{{ form.card_number.value|default:'' }}"
+                                                <input type="text" name="card_number" id="id_card_number" placeholder="Card Number" 
+                                                       value="{{ payment_form.card_number.value|default:'' }}"
+                                                       style="width: 60%; height: 45px; border-radius: 15px;" 
+                                                       maxlength="16" 
+                                                       oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 16);">
+                                            </div>
+                                            <div class="form-floating mb-3">
+                                                <input type="text" name="card_name" id="id_card_name" placeholder="Name on Card" 
+                                                       value="{{ payment_form.card_name.value|default:'' }}"
                                                        style="width: 60%; height: 45px; border-radius: 15px;">
                                             </div>
                                             <div class="form-floating mb-3">
-                                                <input type="text" name="card_name" id="id_card_name" placeholder="Name on Card" value="{{ form.card_name.value|default:'' }}"
-                                                       style="width: 60%; height: 45px; border-radius: 15px;">
-                                            </div>
-                                            <div class="form-floating mb-3">
-                                                <input type="text" name="cvv" id="id_cvv" placeholder="CVV" value="{{ form.cvv.value|default:'' }}"
-                                                       style="width: 60%; height: 45px; border-radius: 15px;">
+                                                <input type="text" name="cvv" id="id_cvv" placeholder="CVV" 
+                                                       value="{{ payment_form.cvv.value|default:'' }}"
+                                                       style="width: 60%; height: 45px; border-radius: 15px;" 
+                                                       maxlength="3" 
+                                                       oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 3);">
                                             </div>
                                             <div class="form-floating mb-3">
                                                 <input type="text" name="expiry_date" id="id_expiry_date" placeholder="Expiry Date (MM/YY)" 
-                                                       class="datepicker" value="{{ form.expiry_date.value|default:'' }}"
+                                                       class="datepicker" value="{{ payment_form.expiry_date.value|default:'' }}"
                                                        style="width: 60%; height: 45px; border-radius: 15px;" autocomplete="off">
                                             </div>
                                         </div>
-                                    
                                         <!-- UPI Details -->
                                         <div id="upi-details" style="display: none;" class="col-12">
                                             <div class="form-floating mb-3">
@@ -87,41 +102,39 @@
                                         <br>
                 
                                         <div class="col-12">
-                                            <button type="submit" class="btn btn-outline-light btn-lg">Confirm Payment</button>
+                                            <div class="col-12">
+                                                <button type="submit" class="btn btn-outline-light btn-lg" onclick="this.disabled=true; this.form.submit();">Confirm Payment</button>
+                                            </div>
                                         </div>
                                     </form>
                                     
-                                    <script>
-                                        function togglePaymentDetails() {
-                                            const cardDetails = document.getElementById('card-details');
-                                            const upiDetails = document.getElementById('upi-details');
-                                            
-                                            // Reset both fields
-                                            cardDetails.style.display = 'none';
-                                            upiDetails.style.display = 'none';
-                                            
-                                            // Show relevant field based on selected payment method
-                                            const selectedPaymentMethod = document.querySelector('input[name="payment_method"]:checked');
-                                            if (selectedPaymentMethod) {
-                                                if (selectedPaymentMethod.value === 'card') {
-                                                    cardDetails.style.display = 'block';
-                                                } else if (selectedPaymentMethod.value === 'upi') {
-                                                    upiDetails.style.display = 'block';
-                                                }
-                                            }
-                                        }
-                                    
-                                        // Initialize datepicker
-                                        $(document).ready(function(){
-                                            $('.datepicker').datepicker({
-                                                format: "mm/yyyy",
-                                                startView: "months",
-                                                minViewMode: "months",
-                                                autoclose: true
-                                            });
-                                        });
-                                    </script>
-                                    
+<script>
+    function togglePaymentDetails() {
+        const cardDetails = document.getElementById('card-details');
+        const upiDetails = document.getElementById('upi-details');
+
+        cardDetails.style.display = 'none';
+        upiDetails.style.display = 'none';
+
+        const selectedPaymentMethod = document.querySelector('input[name="payment_method"]:checked');
+        if (selectedPaymentMethod) {
+            if (selectedPaymentMethod.value === 'card') {
+                cardDetails.style.display = 'block';
+            } else if (selectedPaymentMethod.value === 'upi') {
+                upiDetails.style.display = 'block';
+            }
+        }
+    }
+
+    $(document).ready(function(){
+        $('.datepicker').datepicker({
+            format: "mm/yyyy",
+            startView: "months",
+            minViewMode: "months",
+            autoclose: true
+        });
+    });
+</script>
                                 </div>
                             </div>
                         </div>

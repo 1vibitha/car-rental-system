@@ -1,24 +1,24 @@
 
 from django import forms
 from .models import Item, Category
-
+from django import forms
+from .models import Item, Category
 
 INPUT_CLASSES = 'w-full py-4 px-6 rounded-xl border'
+
 class NewItemForm(forms.ModelForm):
-    # Use a dropdown for existing categories
     category = forms.ModelChoiceField(
         queryset=Category.objects.all(),
         widget=forms.Select(attrs={
             'class': INPUT_CLASSES,
             'style': 'width: 100%; height: 40px;',
         }),
-        required=False,  # Make it optional so a new category can be added instead
+        required=False,
         empty_label="Select Existing Category",
     )
 
-    # Create a new text input field for adding a new category
     new_category = forms.CharField(
-        required=False,  # New category is optional
+        required=False,
         widget=forms.TextInput(attrs={
             'placeholder': 'Or Add New Category',
             'class': INPUT_CLASSES,
@@ -29,7 +29,7 @@ class NewItemForm(forms.ModelForm):
     class Meta:
         model = Item
         fields = ('category', 'new_category', 'name', 'description', 'price', 'image', 'company', 'model', 'seats', 'fuel_type', 'gear_type')
-
+        
         widgets = {
             'name': forms.TextInput(attrs={
                 'placeholder': 'Enter Item Name',
@@ -81,12 +81,23 @@ class NewItemForm(forms.ModelForm):
         cleaned_data = super().clean()
         category = cleaned_data.get('category')
         new_category = cleaned_data.get('new_category')
+        name = cleaned_data.get('name')
+        image = cleaned_data.get('image')
 
         # Ensure either an existing category is selected or a new category is provided
         if not category and not new_category:
             raise forms.ValidationError('Please select an existing category or add a new category.')
 
+        # Ensure name is provided
+        if not name:
+            raise forms.ValidationError('Item name is required.')
+
+        # Ensure an image is uploaded
+        if not image:
+            raise forms.ValidationError('An image is required.')
+
         return cleaned_data
+
 
 
 class EditItemForm(forms.ModelForm):
